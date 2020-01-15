@@ -1,0 +1,30 @@
+<launch>
+  <!-- kinect camera -->
+  <include file="$(find azure_kinect_ros_driver)/launch/driver.launch">
+    <arg name="body_tracking_enabled" value="true" />
+    <arg name="point_cloud" value="false" />
+    <arg name="rgb_point_cloud" value="false" />
+    <arg name="fps" value="5" />
+    <env name="DISPLAY" value=":1" />
+  </include>
+
+  <!-- group prediction -->
+  <node name="publish_static_transforms" pkg="fformation_ros" type="publish_static_transforms.py" />
+  <node name="republish_markers" pkg="fformation_ros" type="republish_markers.py" />
+  <node name="republish_group_markers" pkg="fformation_ros" type="republish_group_markers.py" />
+  <node name="predict_groups" pkg="fformation_ros" type="predict_groups.sh" />
+
+  <!-- robot
+  <include file="$(find shutter_bringup)/launch/shutter_with_face.launch" ns="shutter">
+    <arg name="simulation" value="false"/>
+    <env name="DISPLAY" value=":1" />
+  </include>
+  <node name="optimize_joints_towards_target" pkg="shutter_opt_control" type="optimize_joints_towards_target.py" output="screen" />
+  -->
+
+  <!-- rviz -->
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find fformation_ros)/config/fformation.rviz">
+    <env name="DISPLAY" value=":1" />
+  </node>
+
+</launch>

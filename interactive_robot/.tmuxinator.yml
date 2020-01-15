@@ -1,0 +1,48 @@
+name: fformation
+root: ~/
+
+windows:
+  - fformation:
+      layout: main-vertical
+      panes:
+        - record:
+          - sleep 5
+        - rviz:
+          - sleep 5
+          - DISPLAY=:1 rosrun rviz rviz
+        - roscore:
+          - roscore
+        - interaction:
+          - sleep 5
+          #- DISPLAY=:1 roslaunch shutter_bringup shutter.launch
+          - DISPLAY=:1 roslaunch shutter_photography shutter_photography.launch
+        - motors:
+          - sleep 5
+          - DISPLAY=:1 roslaunch shutter_bringup motors.launch
+        - face:
+          - sleep 5
+          - DISPLAY=:1 roslaunch shutter_face simple_face.launch
+        - movetostart:
+          - sleep 15
+          - rosrun shutter_photography move_to_start.py
+            #- brio:
+            #  - sleep 5
+            #  - DISPLAY=:1 roslaunch shutter_photography brio.launch
+            #- realsense:
+            #  - sleep 5
+            #  - DISPLAY=:1 roslaunch realsense2_camera rs_camera.launch
+        - kinect:
+          - sleep 5
+          - DISPLAY=:1 roslaunch azure_kinect_ros_driver driver.launch body_tracking_enabled:=true point_cloud:=false rgb_point_cloud:=false fps:=5
+        - static_transform:
+          - sleep 5
+          - rosrun fformation_ros publish_static_transforms.py
+        - republish_markers:
+          - sleep 5
+          - rosrun fformation_ros republish_markers.py
+        - republish_group_markers:
+          - sleep 5
+          - rosrun fformation_ros republish_group_markers.py
+        - group_detection:
+          - sleep 5
+          - rosrun fformation_ros predict_groups.py

@@ -1,0 +1,17 @@
+normalized data: False
+global: [16, 128, 512]
+individual: [32]
+combined: [1024, 256, 256]
+vector: None
+reg= 7.943282347242822e-05
+dropout= 0.15
+batch norm=True
+
+best overall val loss: 0.0456278133108043
+best val losses per fold: [0.0456278133108043]
+
+best overall f1 1: 0.8730425055928411
+best f1 1s per fold: [0.8730425055928411]
+
+best overall f1 2/3: 0.9667929292929293
+best f1 2/3s per fold: [0.9667929292929293]

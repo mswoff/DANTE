@@ -1,0 +1,3 @@
+[submodule "fformation_ros/modules/fformation_detection"]
+	path = fformation_ros/modules/fformation_detection
+	url = git@gitlab.com:interactive-machines/perception/fformation_detection.git

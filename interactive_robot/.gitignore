@@ -1,0 +1,7 @@
+.idea
+*~
+*.bbl
+*.pyc
+*.so
+*.swp
+.venv
