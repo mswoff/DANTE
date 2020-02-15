@@ -96,9 +96,9 @@ def shift_all_data_standard(Positions, Groups_at_time, n_people, dataset):
 	f = open('../datasets/' + dataset + '/coordinates.txt', 'ab')
 	for time in Groups_at_time:
 		frame_shifted_coordinates = compute_data_shift(Positions, time, n_people, augment_flipped_data=True)
-		Shifted_Coordinates = np.concatenate(Shifted_Coordinates = frame_shifted_coordinates)
-
-		np.savetxt(f,Shifted_Coordinates, fmt='%s')
+		# Shifted_Coordinates = np.concatenate(Shifted_Coordinates = frame_shifted_coordinates)
+		np.savetxt(f,frame_shifted_coordinates, fmt='%s')
+		# np.savetxt(f,Shifted_Coordinates, fmt='%s')
 		Shifted_Coordinates = []
 	f.close()
 

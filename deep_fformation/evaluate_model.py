@@ -4,6 +4,10 @@ import matplotlib.pyplot as plt
 
 from utils import load_data
 
+from reformat_data import add_time, import_data
+from F1_calc import F1_calc
+
+
 from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input
 
@@ -93,41 +97,42 @@ if __name__ == "__main__":
     preds = model.predict(X)
 
     if args.F1: # calculate F1
-        from gcdata_importer import import_gc_data, add_time
         if "CoffeeBreak" in args.dataset:
-            positions, groups = import_gc_data("CoffeeBreak")
+            positions, groups = import_data("CoffeeBreak")
             groups_at_time = add_time(groups)
-            from gcdata_importer import F1_calc
             n_people = 14
             n_features = 4
-            group_percent = False
         elif "SALSA_all" in args.dataset:
-            positions, groups = import_gc_data("SALSA_all")
+            positions, groups = import_data("SALSA_all")
             groups_at_time = add_time(groups)
-            gcdata_importer import F1_calc
             n_people = 18
             n_features = 5
-            group_percent = False
         elif "FM_Synth" in args.dataset:
-            positions, groups = import_gc_data("FM_Synth")
+            positions, groups = import_data("FM_Synth")
             groups_at_time = add_time(groups)
-            gcdata_importer import F1_calc
             n_people = 10
             n_features = 3
-            # calculate GDSR instead of F1
-            group_percent = True
-        elif "ocktail" in args.dataset:
-            from ds_for_valid import create_groups_at_time, F1_calc
-            groups_at_time = create_groups_at_time()
-            positions = []
+            _, _, GDSR = F1_calc(2/3, preds, timestamps, groups_at_time, positions,
+                    n_people, 1e-5, n_features)
+            print("GDSR: ", GDSR)
+            quit()
+        elif "cocktail_party" in args.dataset:
+            positions, groups = import_data("cocktail_party")
+            groups_at_time = add_time(groups)
+            n_people = 6
+            n_features = 4
         else:
             throw("unrecognized dataset")
 
+        f_2_3, _, _ = F1_calc(2/3, preds, timestamps, groups_at_time, positions,
+        n_people, 1e-5, n_features)
 
-        f_2_3, _, _, f_1, _, _ = F1_calc(preds, timestamps, groups_at_time, positions, 
-                                    n_people=n_people, thres=1e-5, n_features=n_features, 
-                                    group_percent=group_percent, non_reusable=args.non_reusable)
-        print(f_2_3, f_1)
+        f_1, _, _  = F1_calc(1, preds, timestamps, groups_at_time, positions,
+        n_people, 1e-5, n_features)
+
+
+        print("F_2/3: ", f_2_3)
+        print("F_1: ", f_1)
 
     else: # save predictions
         path = args.model_path + "/preds"
