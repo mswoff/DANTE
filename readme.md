@@ -31,7 +31,7 @@ An additional complication of training a NN on such data is that often not all s
 ### reformat_data.py
 This file contains useful functions to build the coordinates.txt, affinities.txt, and timechanges.txt files used by "build_dataset.py". It takes as input data files "group_names.txt" and "features.txt".
 
-We have found that first converting the data to the form in "group_names.txt" and "features.txt" and then using the functions in reformat_data.py was simpler than attempting to build the matrices in "coordinates.txt" and "affinities.txt" from scratch. Often the data comes in a form similar to group_names.txt or features.txt
+We have found that first converting the data to the form in "group_names.txt" and "features.txt" as found in the DS_utils folder and then using the functions in reformat_data.py was simpler than attempting to build the matrices in "coordinates.txt" and "affinities.txt" from scratch. Often the data comes in a form similar to group_names.txt or features.txt
 
 Flags:\
 -d --dataset (required) Name of the dataset being used \
