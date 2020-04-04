@@ -10,7 +10,7 @@ The "deep_fformation" folder contains functions to train and evaluate a the mode
 Pre-trained models are stored in "deep_fformation/models".
 
 # Steps
-(1-3 have already been done for the included datasets)
+(1-3 have already been done for the publicly available datasets)
 1. In the datsets folder, create a folder for a given dataset (e.g. CocktailParty)
 2. Under the dataset, create a subdirectory called DS_utils (e.g. CocktailParty/DS_utils)
 3. In the DS_utils subdirectory, put in the properly formatted features.txt and group_names.txt files (see [Data File Formats](#data-file-formats) for details). These should already be there for the datasets included.
