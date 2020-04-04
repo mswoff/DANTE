@@ -19,7 +19,7 @@ Pre-trained models are stored in "deep_fformation/models".
 6. Run run_models.py to automatically train many models
 7. Run model_search.py to find the best model per fold according to the validation data
 
-Steps 1-3 should already be completed for the datasets in this folder. Step 3 might need to be redone for features.txt to append more dummy/fake people to each row, especially to train on multiple datasets and keep the matrix dimensions consistent. See [features.txt](#data-file-formats) for more details
+Steps 1-3 should already be completed for the datasets in this folder. Step 3 might need to be redone for features.txt to append more dummy/fake people to each row, for example to train on multiple datasets and keep the matrix dimensions consistent. See [features.txt](#data-file-formats) for more details
 
 # Datasets
 One of the most difficult practical aspects of the group detection is the variety of datasets that have been developed. Many of the raw datasets are formatted slightly differently and even have often slightly different features (some don't contain angles, some contain both head and body angles, etc).
