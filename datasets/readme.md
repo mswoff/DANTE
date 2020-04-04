@@ -8,7 +8,7 @@
 ## SALSA
 - Publically available: YES
 - Comes in our desired DS_utils format: NO
-- https://tev.fbk.eu/salsa
+- Link: https://tev.fbk.eu/salsa
 
 ## Coffee Break
 - Publically available: NO
