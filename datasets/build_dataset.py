@@ -39,25 +39,26 @@ def build_X(people_lines, max_people, d, convert_units=False):
             split = line.split()
         else:
             split = line
-            timestamp = split[0]
 
-            # Build X
-            j = 1
-            while j < len(split):
-                representation = split[j:j+d]
-                vect = np.array([float(x) for x in representation])
-                person_idx = int((j-1)/d)
+        timestamp = split[0]
 
-                if convert_units:
-            # "ocktail" not in args.path and "SALSA" not in args.path and "FM" not in args.path:
-                    # convert to meters from cm
-                    vect[:2] /= 100
-                if  j < len(split) - 2 * d:
-                    X_group[i, 0, person_idx, :] = vect
-                else:
-                    X_pairs[i, 0, person_idx - max_people, :] = vect
+        # Build X
+        j = 1
+        while j < len(split):
+            representation = split[j:j+d]
+            vect = np.array([float(x) for x in representation])
+            person_idx = int((j-1)/d)
 
-                j += d
+            if convert_units:
+        # "ocktail" not in args.path and "SALSA" not in args.path and "FM" not in args.path:
+                # convert to meters from cm
+                vect[:2] /= 100
+            if  j < len(split) - 2 * d:
+                X_group[i, 0, person_idx, :] = vect
+            else:
+                X_pairs[i, 0, person_idx - max_people, :] = vect
+
+            j += d
 
     return X_group, X_pairs
 
