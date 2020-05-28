@@ -47,7 +47,7 @@ def weight(S, i, A):
 		for j in range(len(R)):
 			if R[j]:
 				sum_weights += phi(R,j,i,A) * weight(R, j, A)
-				return sum_weights
+		return sum_weights
 
 ## optimization function
 def f(x, A):
