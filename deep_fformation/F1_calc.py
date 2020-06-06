@@ -42,13 +42,14 @@ def F1_calc(group_thres, affinities, times, Groups_at_time, Positions, n_people,
 			else:
 				break
 		predictions = affinities[start_idx:end_idx]
-
 		time = times[start_idx]
+
 		time = time.split(':')[0]
-		start_idx = end_idx
-
-
+		
 		predictions = predictions.flatten()
+
+
+		
 
 		frame_idx = list(Positions[:,0]).index(time)
 		frame = Positions[frame_idx]
@@ -57,14 +58,17 @@ def F1_calc(group_thres, affinities, times, Groups_at_time, Positions, n_people,
 			bool_groups = iterate_climb_learned(predictions, frame, n_people, thres=ds_iteration_thres, n_features=n_features)
 		else:
 			bool_groups = naive_group(predictions, frame, n_people, thres=ds_iteration_thres, n_features=n_features)
+
 		guesses = group_names(bool_groups, n_people)
 
 		truth = Groups_at_time[time]
 		correctness = group_correctness(guesses, truth, T, non_reusable = non_reusable)
-
 		TP_n, FN_n, FP_n, precision, recall = correctness
 
 		avg_results += np.array([precision, recall])
+		start_idx = end_idx
+		# print("p1, r1", precision, recall)
+		# print("avg results", avg_results)
 
 	avg_results /= num_times
 

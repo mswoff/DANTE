@@ -54,7 +54,7 @@ def f(x, A):
 	return np.dot(x.T, np.dot(A, x))
 
 ## iteratively finds vector x which maximizes f
-def vector_climb(A, allowed, n_people, thres=1e-5):
+def vector_climb(A, allowed, n_people, original_A, thres=1e-5):
 	x = np.random.uniform(0,1,n_people)
 	x = np.multiply(x, allowed)
 	eps = 10
@@ -69,7 +69,7 @@ def vector_climb(A, allowed, n_people, thres=1e-5):
  
 	for i in range(n_people):
 		if not allowed[i]:
-			if weight(groups,i,A) > 0.0:
+			if weight(groups,i,original_A) > 0.0:
 				return []
 	return groups
 
@@ -79,13 +79,13 @@ def iterate_climb_learned(predictions, frame, n_people, thres, n_features):
 	groups = []
 
 	A = learned_affinity(n_people, predictions, frame, n_features)
-
+	original_A = A.copy()
 	while (np.sum(allowed) > 1):
 		A[allowed == False] = 0
 		A[:,allowed == False] = 0
 		if (np.sum(np.dot(allowed,A)) == 0):
 			break
-		x = vector_climb(A, allowed, n_people, thres=1e-5)
+		x = vector_climb(A, allowed, n_people, original_A, thres=1e-5)
 		if len(x) == 0:
 			break
 		groups.append(x)
@@ -99,7 +99,6 @@ def naive_group(predictions, frame, n_people, thres, n_features):
 	groups = []
 
 	A = learned_affinity(n_people, predictions, frame, n_features)
-
 	A = np.random.randn(n_people, n_people)
 	A = A > .5
 	for i in range(n_people):
